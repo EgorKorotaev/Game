@@ -1,8 +1,3 @@
-class Diary:
-    def __init__(self):
-        self.NPC = []
-
-
 class Fact:
     def __init__(self):
         self.contents = ''
@@ -15,37 +10,21 @@ class History:
         self.status = False
 
 
+class Diary:
+    def __init__(self):
+        self.write = []
+
+
 class Inventory:
     def __init__(self):
         self.item = []
 
 
 class Item:
-    def __init__(self):
-        self.contents = ''
-        self.use = ''
-        self.cost = 0
-
-
-class Location:
-    def __init__(self):
-        self.contents = ''
-        self.array_NPS = []
-        self.action = OptionsForAction()
-
-
-class OptionsForAction:
-    def __init__(self):
-        self.action = []
-        self.movein = []
-        self.Diary = None
-        self.Inventory = None
-
-
-class Dialog:
-    def __init__(self):
-        self.contents = ''
-        self.action = OptionsForAction()
+    def __init__(self, contents='~', use='~', cost=0):
+        self.contents = contents
+        self.use = use
+        self.cost = cost
 
 
 class People:
@@ -67,6 +46,3 @@ class NPC(People):
         super().__init__(nickname, name, history, inventory)
         self.loyalty = 0
 
-
-class Event:
-    pass
