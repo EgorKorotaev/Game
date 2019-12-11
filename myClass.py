@@ -7,17 +7,14 @@ class Fact:
 class History:
     def __init__(self, fact=Fact()):
         self.fact = []
+        self.fact.append(fact)
         self.status = False
 
 
 class Diary:
-    def __init__(self):
+    def __init__(self, write=History()):
         self.write = []
-
-
-class Inventory:
-    def __init__(self):
-        self.item = []
+        self.write.append(write)
 
 
 class Item:
@@ -25,6 +22,12 @@ class Item:
         self.contents = contents
         self.use = use
         self.cost = cost
+
+
+class Inventory:
+    def __init__(self, item=Item()):
+        self.item = []
+        self.item.append(item)
 
 
 class People:
