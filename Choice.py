@@ -3,6 +3,7 @@ import Repository
 
 
 class Choice:
+
     def __init__(self, text):
         self.text = text
 
@@ -34,6 +35,11 @@ class GoToNpc(Choice):
 
     def apply(self, game_state):
         game_state.change_dialogue(Repository.Repository.get_dialogue(self.npc.get_dialogue_id()))
+
+
+class GoToOtherLocation(Choice):
+    def __init__(self, location):
+        super().__init__(f'[{location.get_name()}]')
 
 
 class EndDialogue(Choice):
