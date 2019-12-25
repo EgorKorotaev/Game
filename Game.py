@@ -26,11 +26,14 @@ class Game:
 
     def display_dialogue(self):  # "отображение диалога"
         dialogue = self.game_state.get_current_dialogue()  # в переменную диалог записываем "полученый текущий диалог"
+        self.print_text(dialogue)
+        for i, choice in enumerate(dialogue.list_choices(), 1):  # для каждого выбора из списка выборов
+            print(Fore.LIGHTBLACK_EX + f'{i}|' + Style.RESET_ALL + choice.get_text())  # печатам текст выбора
+
+    def print_text(self, dialogue):
         print(Fore.LIGHTBLACK_EX + '🙡🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙢' + Style.RESET_ALL)
         # print(dialogue.get_text())  # печатаем на экране из текущего диалога "полученный текст"
         for char in dialogue.get_text():
-            print(char, end="")
-            time.sleep(0.209)
+            print(char, end="", flush=True)
+            time.sleep(0.2)
         print(Fore.LIGHTBLACK_EX + '\n🙡🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙢' + Style.RESET_ALL)
-        for i, choice in enumerate(dialogue.list_choices(), 1):  # для каждого выбора из списка выборов
-            print(Fore.LIGHTBLACK_EX + f'{i}|' + Style.RESET_ALL + choice.get_text())  # печатам текст выбора
