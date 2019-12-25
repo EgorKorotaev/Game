@@ -1,3 +1,5 @@
+import time
+
 from Repository import Repository
 from colorama import Fore, Back, Style
 
@@ -25,7 +27,10 @@ class Game:
     def display_dialogue(self):  # "отображение диалога"
         dialogue = self.game_state.get_current_dialogue()  # в переменную диалог записываем "полученый текущий диалог"
         print(Fore.LIGHTBLACK_EX + '🙡🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙢' + Style.RESET_ALL)
-        print(dialogue.get_text())  # печатаем на экране из текущего диалога "полученный текст"
-        print(Fore.LIGHTBLACK_EX + '🙡🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙢' + Style.RESET_ALL)
+        # print(dialogue.get_text())  # печатаем на экране из текущего диалога "полученный текст"
+        for char in dialogue.get_text():
+            print(char, end="")
+            time.sleep(0.209)
+        print(Fore.LIGHTBLACK_EX + '\n🙡🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙚🙛🙢' + Style.RESET_ALL)
         for i, choice in enumerate(dialogue.list_choices(), 1):  # для каждого выбора из списка выборов
             print(Fore.LIGHTBLACK_EX + f'{i}|' + Style.RESET_ALL + choice.get_text())  # печатам текст выбора
