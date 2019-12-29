@@ -8,41 +8,30 @@ import json
 
 
 class Repository:
-    # должно загружаться из базы данных
-    dialogues = {}
-    # dialogues = {
-    #     'hren_dialogue1': Dialogue(None, [
-    #         SayPhrase('Это точно?', 'hren_dialogue2'),
-    #         EndDialogue('Пока')
-    #     ], 'Привет, я хрен с горы.'),
-    #
-    #     'hren_dialogue2': Dialogue(None, [EndDialogue('Ну теперь точно пока.')], 'Абсолютно!.'),
-    #
-    #     'lady_dialogue1': Dialogue(None, [
-    #         SayPhrase('Привет, красотка', 'lady_dialogue2'),
-    #         SayPhrase('Добрый день, мисс.', 'lady_dialogue3'),
-    #         EndDialogue('До свидания.')
-    #     ], 'Девушка молчаливо смотрит на вас.'),
-    #
-    #     'lady_dialogue2': Dialogue(None, [EndDialogue('Уйти.')], 'Она брезгливо отворачивается.'),
-    #
-    #     'lady_dialogue3': Dialogue(None, [
-    #         SayPhrase('Не хотите что-нибудь выпить в этом прекрасном заведении через дорогу.', 'lady_dialogue2'),
-    #         EndDialogue('Уйти.')
-    #     ], 'Здравствуйте, я Имя.'),
-    # }
-    data = json.load(open(r'resources\map.json', 'r', encoding="utf-8"))
+    data_dialogues = json.load(open(r'resources\dialogues.json', 'r', encoding="utf-8"))
+    # data_map = json.load(open(r'resources\map.json', 'r', encoding="utf-8"))
 
-    for i in data:
-        # print('*1', i)
+    # rawDialogs = json.loads('resources\data.json')
+
+    dialogues = {}
+
+    # for raw_dialog in data_dialogues:
+    #     print('****>', raw_dialog, '<****')
+    #     dialogues[raw_dialog['key']] = raw_dialog
+    #     print('!!!!>', dialogues[raw_dialog['key']], '<!!!!')
+
+    dialog_keys = []
+    for dialog in data_dialogues:
+        dialog_keys.append(dialog['key'])
+
+    for raw_dialog in data_dialogues:
         choices = []
-        for j in data[i][0]:
-            # print('*2', j, type(j))
-            if j != 0:
-                choices.append(SayPhrase(j[0], j[1]))
+        for choice in raw_dialog['dialogBranches']:
+            if choice['nextDialogKey'] in dialog_keys:
+                choices.append(SayPhrase(choice['branchName'], choice['nextDialogKey']))
             else:
-                choices.append(EndDialogue("Далее"))
-        dialogues[i] = Dialogue(None, choices, data[i][1])
+                choices.append(EndDialogue('(В разработке)' + choice['branchName']))
+        dialogues[raw_dialog['key']] = Dialogue(None, choices, raw_dialog['dialogText'])
 
     @staticmethod
     def get_dialogue(dialogue_id):  # "получить диалог" принимает "id диалога"
@@ -51,11 +40,6 @@ class Repository:
     @staticmethod
     def get_location(id):
         # TODO AAA
-        # npc_HARDCODED = [
-        #     NPC('Хрен с горы', 'hren_dialogue1'),
-        #     NPC('Таинственная леди', 'lady_dialogue1')
-        # ]
-        # return Location(npc_HARDCODED, 'Вы стоите посреди селения "Артихан"')
         start = [
             NPC('start', '1')
         ]

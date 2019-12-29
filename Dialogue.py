@@ -6,6 +6,13 @@ class Dialogue:
         self.choices = choices
         self.visited_marks = [False] * len(self.choices)
 
+    # def __init__(self, key, choices, dialogText):
+    #     self.key = key
+    #     self.dialogText = dialogText
+    #     # self.parent = parent
+    #     self.choices = choices
+    #     self.visited_marks = [False] * len(self.choices)
+
     def make_choice(self, idx, game_state):
         self.visited_marks[idx] = True
         return self.choices[idx].apply(game_state)
